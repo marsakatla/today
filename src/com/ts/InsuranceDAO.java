@@ -47,7 +47,7 @@ public class InsuranceDAO {
 			//here sonoo is database name, root is username and password  
 			
 			Statement stmt=con.createStatement();  
-			ResultSet rs=stmt.executeQuery("select vehicle_model_name from auto_rates");  
+			ResultSet rs=stmt.executeQuery("select vehical_modelname from auto_rates");  
 			
 			while(rs.next())  
 			{

@@ -15,11 +15,11 @@ public class InsuranceDAO {
 		try{ 
 			Class.forName("com.mysql.jdbc.Driver");  
 			Connection con=DriverManager.getConnection(  
-			"jdbc:mysql://localhost:3306/rk","root","root");  
+			"jdbc:mysql://localhost:3306/insurance","root","root");  
 			//here sonoo is database name, root is username and password  
 			
 			Statement stmt=con.createStatement();  
-			ResultSet rs=stmt.executeQuery("select role,underwritter_name from underwriter where User_id='"+uid+"' and Password='"+pwd+"'");  
+			ResultSet rs=stmt.executeQuery("select role,Uname from underwriter where User_id='"+uid+"' and Password='nuser'");  
 			
 			while(rs.next())  
 			{
@@ -43,11 +43,11 @@ public class InsuranceDAO {
 		try{ 
 			Class.forName("com.mysql.jdbc.Driver");  
 			Connection con=DriverManager.getConnection(  
-			"jdbc:mysql://localhost:3306/rk","root","root");  
+			"jdbc:mysql://localhost:3306/insurance","root","root");  
 			//here sonoo is database name, root is username and password  
 			
 			Statement stmt=con.createStatement();  
-			ResultSet rs=stmt.executeQuery("select vehical_modelname from auto_rates");  
+			ResultSet rs=stmt.executeQuery("select vehicle_model_name from auto_rates");  
 			
 			while(rs.next())  
 			{
@@ -56,15 +56,41 @@ public class InsuranceDAO {
 			rs.close();
 			con.close(); 
 		}
-			catch(Exception e){ System.out.println(e);
-			} 
-		finally 
-		{
+			catch(Exception e){ System.out.println(e);} 
+		finally {
 			return models;
 		}
 		
 	}
+	
+	public int basePremium(String model)
+	{
+		int base=0;
+		try{ 
+			Class.forName("com.mysql.jdbc.Driver");  
+			Connection con=DriverManager.getConnection(  
+			"jdbc:mysql://localhost:3306/insurance","root","root");  
+			//here sonoo is database name, root is username and password  
+			
+			Statement stmt=con.createStatement();  
+			ResultSet rs=stmt.executeQuery("select Auto_base_Premium  from auto_rates where vehicle_model_name='"+model+"'");  
+			
+			while(rs.next())  
+			{
+		base=(rs.getInt(1));
+			}
+			rs.close();
+			con.close(); 
+		}
+			catch(Exception e){ System.out.println(e);} 
+		finally {
+			return base;
+		}
+		
 	}
+	
+	}
+	
 	
 	
 	

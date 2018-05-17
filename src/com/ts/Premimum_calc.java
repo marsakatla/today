@@ -1,8 +1,6 @@
 package com.ts;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,15 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class CalcAuto
+ * Servlet implementation class PremiumCalc
  */
-public class CalcAuto extends HttpServlet {
+public class Premimum_calc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalcAuto() {
+    public Premimum_calc() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,23 +26,20 @@ public class CalcAuto extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		ArrayList<String> models=new InsuranceDAO().autoModelList();
-		HttpSession session=request.getSession();  
-        session.setAttribute("models",models);
-        response.sendRedirect("Calc_auto.jsp");
-        
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		ArrayList<String> models=new InsuranceDAO().autoModelList();
+		String model=request.getParameter("category");
+		int base=new InsuranceDAO().basePremium(model);
+		String[] a= {model,String.valueOf(base)};
 		HttpSession session=request.getSession();  
-        session.setAttribute("models",models);
-        response.sendRedirect("Calc_auto.jsp");
+        session.setAttribute("premium",a);
+        response.sendRedirect("Premimum_Calc.jsp");
+		
 	}
 
 }
